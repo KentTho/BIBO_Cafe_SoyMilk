@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BIBO — Cafe & Sữa Đậu Nành. Cafe đậm vị, sữa đậu nành dịu lành. Thưởng thức nguyên liệu sạch, gần gũi, hiện đại." />
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="BIBO — Cafe & Sữa Đậu Nành" />
+  <meta property="og:description" content="Cafe đậm vị, sữa đậu nành dịu lành. Thưởng thức nguyên liệu sạch, gần gũi, hiện đại." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bibo-cafe-soymilk.vercel.app/" />
+  <meta property="og:image" content="https://bibo-cafe-soymilk.vercel.app/og-image.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>" />
+
+  <title>BIBO — Cafe &amp; Sữa Đậu Nành</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================
+       01 · DESIGN TOKENS — BIBO Palette v3 (Coffee Correct)
+       ========================================================== */
+    :root {
+      /* ── Core brand palette ── */
+      --color-milk:      #FFFDF7;   /* Milk White  — nền trắng sữa */
+      --color-cream:     #F5EFE6;   /* Soy Cream   — nền section phụ */
+      --color-oat:       #EADCCB;   /* Oat Beige   — border, card phụ */
+      --color-coffee:    #4B2E1F;   /* Coffee Dark — màu cafe đậm */
+      --color-roast:     #6A442D;   /* Roasted Brown — heading, text phụ */
+      --color-caramel:   #8B5E3C;   /* Caramel Brown — accent ấm */
+      --color-soy:       #8FAE4A;   /* Soy Green   — CTA, eyebrow */
+      --color-bean:      #6F8F35;   /* Bean Deep   — CTA hover */
+      --color-espresso:  #211F0C;   /* Espresso Text — body text chính */
+
+      /* ── Brand gradients ── */
+      --gradient-coffee:     linear-gradient(135deg, #4B2E1F 0%, #6A442D 55%, #8B5E3C 100%);
+      --gradient-coffee-deep: linear-gradient(135deg, #211F0C 0%, #4B2E1F 55%, #6A442D 100%);
+      --gradient-cta:        linear-gradient(135deg, #8FAE4A 0%, #6F8F35 100%);
+      --gradient-soy-soft:   radial-gradient(circle at 30% 20%, rgba(143,174,74,.28), rgba(245,239,230,.8) 48%, rgba(255,253,247,.92) 100%);
+      --gradient-milk:       linear-gradient(135deg, #FFFDF7 0%, #F5EFE6 55%, #EADCCB 100%);
+
+      /* ── Premium depth gradients ── */
+      --gradient-depth-coffee:
+        linear-gradient(
+          85deg,
+          rgba(250,247,235,.14) 0%,
+          #B98555 30%,
+          #4B2E1F 70%,
+          #211F0C 100%
+        );
+      --gradient-depth-coffee-solid:
+        linear-gradient(
+          85deg,
+          #8B5E3C 0%,
+          #6A442D 32%,
+          #4B2E1F 70%,
+          #211F0C 100%
+        );
+      --gradient-final-cta:
+        radial-gradient(circle at 88% 92%, rgba(143,174,74,.26), transparent 32%),
+        linear-gradient(
+          85deg,
+          #6A442D 0%,
+          #4B2E1F 45%,
+          #2B2112 72%,
+          #211F0C 100%
+        );
+      --gradient-primary-strong:
+        linear-gradient(135deg, #7A9A36 0%, #6F8F35 45%, #557124 100%);
+
+      /* ── Shadows — keyed to coffee dark ── */
+      --sh-1:    0 1px 2px rgba(75,46,31,.04), 0 2px 8px rgba(75,46,31,.06);
+      --sh-2:    0 2px 4px rgba(75,46,31,.06), 0 10px 24px rgba(75,46,31,.09);
+      --sh-3:    0 10px 18px rgba(75,46,31,.10), 0 24px 60px rgba(75,46,31,.13);
+      --sh-cta:  0 12px 28px rgba(111,143,53,.32);
+      --sh-warm: 0 8px 28px rgba(75,46,31,.20);
+
+      /* ── Borders ── */
+      --line:      #DDD0BC;
+      --line-dark: rgba(255,253,247,.12);
+
+      /* ── Legacy aliases — map to new coffee palette ── */
+      --coffee:       #4B2E1F;
+      --coffee-deep:  #211F0C;
+      --caramel:      #8B5E3C;
+      --milk:         #FFFDF7;
+      --soy-cream:    #F5EFE6;
+      --bean:         #8FAE4A;
+      --bean-deep:    #6F8F35;
+      --bean-soft:    #D8E2B6;
+      --dark:         #211F0C;
+      --ink-soft:     #6A442D;
+
+      /* ── Typography ── */
+      --font-heading: 'Lora', Georgia, 'Times New Roman', serif;
+      --font-body:    'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
+
+      --fs-h1:   clamp(36px, 5.5vw, 68px);
+      --fs-h2:   clamp(28px, 3.8vw, 50px);
+      --fs-h3:   clamp(22px, 2.4vw, 32px);
+      --fs-h4:   20px;
+      --fs-body: 16px;
+      --fs-lede: 18px;
+
+      /* ── Spacing ── */
+      --sp-section:   96px;
+      --sp-section-m: 56px;
+      --container:    1200px;
+
+      /* ── Radius ── */
+      --r-sm:   8px;
+      --r-md:   14px;
+      --r-lg:   20px;
+      --r-xl:   24px;
+      --r-pill: 999px;
+
+      /* ── Motion ── */
+      --t-fast: .2s ease-out;
+      --t-base: .3s cubic-bezier(.2,.8,.2,1);
+    }
+
+    /* ==========================================================
+       02 · RESET & BASE
+       ========================================================== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body { overflow-x: hidden; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: 1.65;
+      color: var(--color-espresso);
+      background: var(--color-milk);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+
+    a { color: inherit; text-decoration: none; transition: color var(--t-fast); }
+
+    button { font: inherit; cursor: pointer; background: none; border: 0; color: inherit; }
+
+    ul, ol { list-style: none; padding: 0; margin: 0; }
+
+    p { margin: 0 0 16px; text-wrap: pretty; }
+
+    ::selection { background: var(--color-soy); color: white; }
+
+    :focus-visible {
+      outline: 2px solid var(--color-soy);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ==========================================================
+       03 · LAYOUT PRIMITIVES
+       ========================================================== */
+    .container {
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .section {
+      padding-top: var(--sp-section);
+      padding-bottom: var(--sp-section);
+      position: relative;
+    }
+
+    .section-head {
+      margin-bottom: 56px;
+      max-width: 760px;
+    }
+    .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+    .section-head.row {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 24px; max-width: 100%; flex-wrap: wrap;
+    }
+
+    /* ==========================================================
+       04 · TYPOGRAPHY
+       ========================================================== */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      color: var(--color-coffee);
+      margin: 0 0 16px;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Text wrap balance for all major headings ── */
+    h1, h2, h3 { text-wrap: balance; }
+
+    /* ── Desktop: prevent orphan words in key phrases ── */
+    @media (min-width: 900px) {
+      .nowrap-desktop  { white-space: nowrap; }
+      .keep-phrase     { white-space: nowrap; }
+    }
+    @media (max-width: 899px) {
+      .nowrap-desktop, .keep-phrase { white-space: normal; }
+    }
+
+    h1, .hero-title {
+      font-size: clamp(32px, 4.6vw, 58px);
+      font-weight: 500;
+      line-height: 1.10;
+      letter-spacing: -0.02em;
+    }
+    .hero-title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--color-caramel);
+    }
+
+    h2, .section-title, .final-title {
+      font-size: var(--fs-h2);
+      font-weight: 600;
+      line-height: 1.1;
+    }
+    .section-title em, .final-title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--color-caramel);
+    }
+
+    h3 { font-size: var(--fs-h3); }
+
+    h4 {
+      font-size: var(--fs-h4);
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: var(--color-roast);
+      letter-spacing: 0;
+      line-height: 1.3;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-soy);
+      margin: 0 0 16px;
+    }
+
+    .eyebrow-on-dark { color: var(--bean-soft); }
+
+    h6, .footer-title {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--coffee);
+      margin: 0 0 16px;
+    }
+
+    /* ==========================================================
+       05 · BUTTONS
+       ========================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1;
+      padding: 14px 22px;
+      border-radius: var(--r-pill);
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: background-color var(--t-base), color var(--t-base),
+                  border-color var(--t-base), box-shadow var(--t-base),
+                  transform var(--t-fast);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-lg { padding: 16px 26px; font-size: 16px; }
+    .btn-md { padding: 12px 20px; font-size: 14px; }
+
+    .btn-primary {
+      background: var(--gradient-primary-strong);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(85,113,36,.40);
+      border-color: transparent;
+      font-weight: 700;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #8FAE4A 0%, #6F8F35 55%, #4A6120 100%);
+      box-shadow: 0 14px 36px rgba(85,113,36,.52);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--color-coffee);
+      color: var(--color-coffee);
+    }
+    .btn-secondary:hover {
+      background: var(--color-coffee);
+      color: var(--color-milk);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-coffee);
+    }
+    .btn-ghost:hover {
+      background: var(--color-cream);
+      color: var(--color-espresso);
+    }
+
+    .btn-on-dark-ghost {
+      background: transparent;
+      border-color: rgba(255,253,247,.35);
+      color: var(--color-milk);
+    }
+    .btn-on-dark-ghost:hover {
+      background: var(--color-milk);
+      color: var(--color-espresso);
+      border-color: var(--color-milk);
+    }
+
+    .btn-full { width: 100%; }
+
+    /* ==========================================================
+       06 · HEADER & NAV
+       ========================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,253,247,.88);
+      backdrop-filter: saturate(150%) blur(16px);
+      -webkit-backdrop-filter: saturate(150%) blur(16px);
+      border-bottom: 1px solid transparent;
+      transition: padding var(--t-base), background var(--t-base), border-color var(--t-base);
+    }
+    .site-header.is-scrolled {
+      border-bottom-color: var(--line);
+      background: rgba(255,253,247,.97);
+    }
+
+    .header-inner {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding-top: 22px;
+      padding-bottom: 22px;
+      transition: padding var(--t-base);
+    }
+    .site-header.is-scrolled .header-inner {
+      padding-top: 14px;
+      padding-bottom: 14px;
+    }
+
+    .logo {
+      display: inline-flex;
+      flex-direction: column;
+      line-height: 1;
+      color: var(--coffee);
+    }
+    .logo-mark {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0.5px;
+    }
+    .logo-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: 4px;
+    }
+
+    .nav-desktop {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      font-size: 15px;
+    }
+    .nav-desktop a {
+      position: relative;
+      padding: 10px 14px;
+      color: var(--dark);
+      font-weight: 500;
+      border-radius: var(--r-pill);
+      transition: color var(--t-fast), background-color var(--t-fast);
+    }
+    .nav-desktop a:hover { color: var(--color-coffee); background: var(--color-cream); }
+    .nav-desktop a.is-active::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 2px;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--color-soy);
+    }
+
+    .header-cta { display: flex; gap: 10px; }
+
+    /* Hamburger */
+    .nav-toggle {
+      display: none;
+      width: 44px; height: 44px;
+      border-radius: var(--r-pill);
+      background: var(--color-cream);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 18px; height: 2px;
+      background: var(--color-coffee);
+      border-radius: 2px;
+      transition: transform var(--t-base), opacity var(--t-base);
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--line);
+      background: rgba(255,253,247,.99);
+    }
+    .nav-mobile a {
+      padding: 14px 4px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-espresso);
+      border-bottom: 1px dashed var(--line);
+    }
+    .nav-mobile a:last-child { border-bottom: 0; margin-top: 12px; }
+    .nav-mobile.is-open { display: flex; }
+
+    /* ==========================================================
+       07 · HERO
+       ========================================================== */
+    .hero {
+      padding-top: 64px;
+      padding-bottom: var(--sp-section);
+      position: relative;
+      overflow: hidden;
+      background: var(--color-milk);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(700px 480px at 90% 18%, rgba(143,174,74,.10), transparent 55%),
+        radial-gradient(500px 420px at 4%  85%, rgba(139,94,60,.06),  transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 56px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-copy { max-width: 580px; }
+
+    .hero-lede {
+      font-size: var(--fs-lede);
+      line-height: 1.65;
+      color: var(--ink-soft);
+      margin: 0 0 32px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .trust-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 22px;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+    .trust-list li { display: inline-flex; align-items: center; gap: 8px; }
+    .trust-list .check {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(143,174,74,.15);
+      color: var(--color-bean);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative;
+      min-height: 480px;
+      display: grid;
+      place-items: center;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 62% 38% 55% 45% / 50% 60% 40% 50%;
+      filter: blur(1px);
+      z-index: 0;
+    }
+    .blob-bean {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle at 32% 36%, #c4d882, var(--color-soy) 55%, var(--color-bean));
+      opacity: 0.45;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: blob-rotate 24s linear infinite, blob-breathe 8s ease-in-out infinite;
+    }
+    /* Secondary warm brown accent blob */
+    .blob-coffee-accent {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle at 40% 40%, #8B5E3C, #4B2E1F);
+      opacity: 0.12;
+      bottom: 20px; left: 8%;
+      border-radius: 60% 40% 55% 45% / 48% 52% 48% 52%;
+      animation: blob-breathe 11s ease-in-out infinite reverse;
+    }
+
+    .hero-badge {
+      position: absolute;
+      top: 12px; right: 0;
+      z-index: 5;
+      background: var(--milk);
+      color: var(--coffee);
+      padding: 10px 18px;
+      border-radius: var(--r-pill);
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 14px;
+      box-shadow: var(--sh-2);
+      transform: rotate(4deg);
+      border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+
+    .cups {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      gap: 20px;
+    }
+
+    /* Cup illustration — upgraded */
+    .cup {
+      position: relative;
+      width: 150px; height: 230px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      filter: drop-shadow(0 20px 36px rgba(36,22,15,.22));
+      animation: float 4.5s ease-in-out infinite;
+    }
+    .cup:nth-child(2) { animation-delay: -2.2s; }
+
+    .cup-lid {
+      width: 94%; height: 20px;
+      border-radius: 50% 50% 6px 6px / 60% 60% 6px 6px;
+      background: var(--coffee-deep);
+      position: relative; z-index: 2;
+    }
+    .cup-body {
+      width: 100%; flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px 6px 20px 20px;
+      overflow: hidden;
+      border: 1.5px solid var(--coffee);
+    }
+    .cup-body::before {
+      content: "";
+      position: absolute;
+      left: 8%; top: 8%;
+      width: 12%; height: 68%;
+      background: linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0));
+      border-radius: 999px;
+    }
+    .cup-saucer {
+      width: 115%; height: 14px;
+      background: var(--coffee-deep);
+      border-radius: 0 0 50% 50% / 0 0 100% 100%;
+      margin-top: -2px;
+      opacity: .85;
+    }
+    .cup-base {
+      width: 80%; height: 8px;
+      background: var(--coffee-deep);
+      border-radius: 0 0 12px 12px;
+      opacity: .7;
+    }
+    .cup-label {
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      position: relative; z-index: 1;
+    }
+    /* Steam lines */
+    .cup-steam {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 4;
+    }
+    .steam-line {
+      width: 3px;
+      height: 20px;
+      border-radius: 3px;
+      background: rgba(255,253,247,.55);
+      animation: steam 2s ease-in-out infinite;
+    }
+    .steam-line:nth-child(2) { animation-delay: .5s; height: 14px; }
+    .steam-line:nth-child(3) { animation-delay: 1s;  height: 18px; }
+    @keyframes steam {
+      0%, 100% { opacity: 0; transform: scaleY(1) translateY(0); }
+      40%       { opacity: 1; }
+      100%      { opacity: 0; transform: scaleY(1.3) translateY(-6px); }
+    }
+    .cup-coffee .cup-body { background: linear-gradient(180deg, #6a4429 0%, #4B2E1F 70%); }
+    .cup-coffee .cup-label { color: var(--bean-soft); }
+    .cup-soy .cup-body    { background: linear-gradient(180deg, #FFFDF7 0%, #F1E9D5 100%); border-color: var(--caramel); }
+    .cup-soy .cup-lid     { background: var(--caramel); }
+    .cup-soy .cup-saucer  { background: var(--caramel); opacity: .75; }
+    .cup-soy .cup-base    { background: var(--caramel); }
+    .cup-soy .cup-label   { color: var(--caramel); }
+    .cup-straw {
+      position: absolute;
+      top: -34px; right: 24%;
+      width: 7px; height: 60px;
+      background: linear-gradient(180deg, var(--bean), var(--bean-deep));
+      border-radius: 4px;
+      transform: rotate(8deg);
+      z-index: 3;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+    @keyframes blob-rotate {
+      0%   { transform: translateX(-50%) rotate(0deg); }
+      100% { transform: translateX(-50%) rotate(360deg); }
+    }
+    @keyframes blob-breathe {
+      0%, 100% { border-radius: 62% 38% 55% 45% / 50% 60% 40% 50%; }
+      50%       { border-radius: 50% 50% 45% 55% / 60% 40% 60% 40%; }
+    }
+
+    /* ==========================================================
+       08 · PRODUCT SPLIT
+       ========================================================== */
+    .product-split { background: var(--color-milk); }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .split-card {
+      position: relative;
+      border-radius: var(--r-xl);
+      padding: 48px 44px 56px;
+      min-height: 380px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform var(--t-base), box-shadow var(--t-base);
+      box-shadow: var(--sh-2);
+    }
+    .split-card:hover { transform: translateY(-5px); box-shadow: var(--sh-3); }
+
+    /* Dark cafe card */
+    .split-coffee {
+      background: var(--gradient-coffee);
+      color: var(--color-milk);
+    }
+    /* Light soy card */
+    .split-soy {
+      background: var(--color-cream);
+      color: var(--color-coffee);
+      border: 1px solid var(--line);
+    }
+    .split-coffee h3 { color: var(--color-milk); }
+    .split-coffee .split-desc { color: rgba(255,253,247,.80); }
+
+    .split-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: var(--r-pill);
+      align-self: flex-start;
+      margin-bottom: 24px;
+      background: rgba(255,253,247,.14);
+      color: var(--bean-soft);
+    }
+    .split-tag.tag-bean {
+      background: rgba(143,174,74,.14);
+      color: var(--color-bean);
+      border: 1px solid rgba(111,143,53,.28);
+    }
+    .split-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    .split-title { font-size: clamp(28px, 3vw, 38px); margin-bottom: 12px; }
+    .split-desc { font-size: 16px; line-height: 1.65; max-width: 360px; margin-bottom: 28px; color: var(--ink-soft); }
+    .split-coffee .split-desc { color: rgba(255,253,247,.75); }
+
+    .split-tags-row {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;
+    }
+    .tag-pill {
+      font-size: 12px; font-family: var(--font-body); font-weight: 600;
+      padding: 5px 12px; border-radius: var(--r-pill);
+    }
+    .tag-pill-light { background: rgba(255,253,247,.16); color: var(--bean-soft); }
+    .tag-pill-bean  { background: rgba(143,174,74,.16); color: var(--color-bean); border: 1px solid rgba(111,143,53,.30); }
+
+    .split-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 15px;
+      align-self: flex-start;
+      padding-bottom: 4px;
+      border-bottom: 1.5px solid currentColor;
+      transition: gap var(--t-base);
+    }
+    .split-link:hover { gap: 14px; }
+    .split-link-light { color: var(--milk); }
+    .split-link-bean  { color: var(--bean-deep); }
+
+    .split-illo {
+      position: absolute;
+      right: -10px; bottom: -20px;
+      opacity: .92;
+      pointer-events: none;
+    }
+
+    .cup.mini { width: 84px; height: 130px; animation: none; filter: drop-shadow(0 12px 20px rgba(0,0,0,.18)); }
+    .cup.mini .cup-lid    { height: 14px; }
+    .cup.mini .cup-saucer { height: 10px; width: 110%; }
+    .cup.mini .cup-base   { height: 7px; }
+    .cup.mini .cup-steam  { display: none; }
+
+    /* ==========================================================
+       09 · BRAND STORY
+       ========================================================== */
+    .story { background: var(--color-cream); }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .story-media { position: relative; }
+
+    .placeholder {
+      border-radius: var(--r-lg);
+      background:
+        repeating-linear-gradient(135deg, rgba(75,46,31,.06) 0 8px, transparent 8px 18px),
+        var(--milk);
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      color: var(--ink-soft);
+      font-family: var(--font-body);
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 24px;
+    }
+    .placeholder span {
+      background: var(--milk);
+      padding: 6px 12px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+    }
+    .placeholder-4x5 { aspect-ratio: 4 / 5; }
+
+    .story-stamp {
+      position: absolute;
+      top: 20px; right: -16px;
+      background: var(--color-soy);
+      color: var(--color-milk);
+      padding: 10px 16px;
+      border-radius: var(--r-pill);
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 14px;
+      font-weight: 500;
+      transform: rotate(6deg);
+      box-shadow: var(--sh-cta);
+    }
+
+    .story-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 32px;
+    }
+    .story-points li {
+      padding: 20px 20px 22px;
+      border-radius: var(--r-md);
+      background: var(--color-milk);
+      border: 1px solid var(--line);
+      box-shadow: var(--sh-1);
+    }
+    .story-points h4 {
+      font-family: var(--font-heading);
+      color: var(--color-coffee);
+      font-size: 17px;
+      margin: 0 0 6px;
+    }
+    .story-points p { font-size: 13px; line-height: 1.5; color: var(--color-roast); opacity: .80; margin: 0; }
+
+    /* ==========================================================
+       10 · BENEFITS
+       ========================================================== */
+    .benefits { background: var(--color-milk); }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .benefit-card {
+      padding: 32px 28px;
+      border-radius: var(--r-xl);
+      background: var(--color-cream);
+      border: 1px solid var(--line);
+      box-shadow: var(--sh-1);
+      transition: transform var(--t-base), box-shadow var(--t-base);
+    }
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--sh-3);
+      border-color: rgba(139,94,60,.22);
+    }
+
+    .benefit-num {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-caramel);
+      opacity: .7;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+    .benefit-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--r-md);
+      background: var(--color-milk);
+      color: var(--color-coffee);
+      display: grid; place-items: center;
+      margin-bottom: 20px;
+      box-shadow: var(--sh-1);
+    }
+    .benefit-card h4 { margin: 0 0 6px; color: var(--color-coffee); }
+    .benefit-card p { font-size: 14px; color: var(--color-roast); opacity: .80; line-height: 1.6; margin: 0; }
+
+    /* ==========================================================
+       11 · MENU / BEST SELLERS
+       ========================================================== */
+    .menu-section { background: var(--color-cream); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .product-card {
+      position: relative;
+      background: var(--color-milk);
+      border: 1px solid var(--line);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--sh-2);
+      transition: transform var(--t-base), box-shadow var(--t-base);
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: var(--sh-3); }
+
+    /* Signature card: green ring + top gradient strip */
+    .product-card.is-signature {
+      border-color: var(--color-soy);
+      box-shadow: 0 0 0 2px var(--color-soy), var(--sh-2);
+    }
+    .product-card.is-signature::before {
+      content: "";
+      display: block;
+      height: 4px;
+      background: var(--gradient-cta);
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 2;
+    }
+
+    .product-img {
+      aspect-ratio: 4 / 3;
+      position: relative;
+      background:
+        repeating-linear-gradient(135deg, rgba(75,46,31,.06) 0 8px, transparent 8px 18px),
+        var(--color-cream);
+      display: grid;
+      place-items: center;
+      color: var(--color-roast);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .product-card.is-signature .product-img {
+      background:
+        linear-gradient(180deg, rgba(143,174,74,.14), rgba(143,174,74,.04)),
+        repeating-linear-gradient(135deg, rgba(75,46,31,.06) 0 8px, transparent 8px 18px),
+        var(--color-cream);
+    }
+    .product-img .product-label {
+      background: var(--color-milk);
+      padding: 6px 14px;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--line);
+      color: var(--color-coffee);
+    }
+
+    .product-ribbon {
+      position: absolute;
+      top: 20px; left: 16px;
+      background: var(--gradient-cta);
+      color: #fff;
+      padding: 6px 13px;
+      border-radius: var(--r-pill);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: var(--sh-cta);
+      z-index: 3;
+    }
+
+    .product-body {
+      padding: 22px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .product-body h3 { font-size: 21px; margin: 0 0 6px; }
+    .product-body .product-desc { font-size: 14px; color: var(--ink-soft); margin: 0 0 18px; flex: 1; }
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto; gap: 12px;
+    }
+    .product-price {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--color-coffee);
+    }
+
+    /* ==========================================================
+       12 · PROCESS
+       ========================================================== */
+    .process {
+      background: var(--gradient-depth-coffee-solid);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Soy-green radial glow — top-right corner */
+    .process::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 560px 400px at 95% 0%,   rgba(143,174,74,.13), transparent 55%),
+        radial-gradient(ellipse 400px 320px at 5%  100%, rgba(185,133,85,.10), transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Subtle horizontal grain texture */
+    .process::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255,253,247,.014) 0px,
+        rgba(255,253,247,.014) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Ensure all children above pseudo-elements */
+    .process .container { position: relative; z-index: 1; }
+
+    .process .section-head .eyebrow { color: var(--bean-soft); }
+    .process .section-title { color: var(--color-milk); }
+
+    .process-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+    .process-list::before {
+      content: "";
+      position: absolute;
+      top: 36px;
+      left: 16.66%; right: 16.66%;
+      height: 0;
+      border-top: 2px dashed rgba(255,253,247,.20);
+      z-index: 0;
+    }
+
+    .process-step { position: relative; z-index: 1; text-align: center; }
+
+    .step-num {
+      width: 72px; height: 72px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      background: rgba(33,31,12,.50);
+      border: 1.5px solid rgba(255,253,247,.22);
+      display: grid; place-items: center;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--bean-soft);
+      position: relative;
+      box-shadow: 0 4px 16px rgba(33,31,12,.35);
+    }
+    .step-num::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px dashed rgba(143,174,74,.42);
+    }
+
+    .step-body {
+      background: rgba(255,253,247,.07);
+      border-radius: var(--r-xl);
+      padding: 28px 28px 30px;
+      border: 1px solid rgba(255,253,247,.12);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      box-shadow: inset 0 1px 0 rgba(255,253,247,.08);
+    }
+    .step-body .step-icon {
+      width: 44px; height: 44px;
+      margin: 0 auto 14px;
+      display: grid; place-items: center;
+      background: rgba(255,253,247,.10);
+      color: var(--bean-soft);
+      border-radius: var(--r-md);
+      border: 1px solid rgba(255,253,247,.10);
+    }
+    .step-body h4 { margin: 0 0 6px; color: var(--color-milk); font-family: var(--font-body); font-weight: 600; }
+    .step-body p { margin: 0; font-size: 14px; color: rgba(255,253,247,.72); line-height: 1.6; }
+
+    /* ==========================================================
+       13 · TESTIMONIALS
+       ========================================================== */
+    .testimonials { background: var(--color-milk); }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .testi-card {
+      position: relative;
+      background: var(--color-cream);
+      border: 1px solid var(--line);
+      border-radius: var(--r-xl);
+      padding: 36px 30px 28px;
+      margin: 0;
+      box-shadow: var(--sh-1);
+      transition: transform var(--t-base), box-shadow var(--t-base);
+    }
+    .testi-card:nth-child(1) { transform: rotate(-0.4deg); }
+    .testi-card:nth-child(2) { transform: rotate(0.3deg); }
+    .testi-card:nth-child(3) { transform: rotate(-0.2deg); }
+    .testi-card:hover { transform: translateY(-4px) rotate(0deg); }
+
+    .quote-mark {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 60px;
+      line-height: 1;
+      color: var(--color-soy);
+      opacity: .70;
+      margin-bottom: -10px;
+    }
+
+    .testi-card blockquote { margin: 0 0 24px; }
+    .testi-card blockquote p { font-size: 16px; line-height: 1.6; color: var(--color-espresso); margin: 0; font-style: italic; }
+
+    .testi-card figcaption {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--gradient-coffee);
+      color: var(--color-milk);
+      display: grid; place-items: center;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+
+    .testi-name { font-family: var(--font-heading); font-weight: 600; font-size: 16px; color: var(--color-coffee); }
+    .testi-role { font-size: 12px; color: var(--color-roast); opacity: .70; letter-spacing: 0.04em; }
+
+    /* ==========================================================
+       14 · FINAL CTA
+       ========================================================== */
+    .final-cta {
+      background: var(--color-cream);
+      padding-top: var(--sp-section);
+      padding-bottom: var(--sp-section);
+    }
+
+    .final-cta-box {
+      background: var(--gradient-final-cta);
+      border-radius: var(--r-xl);
+      padding: 88px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 2px 4px rgba(33,31,12,.10),
+        0 16px 48px rgba(33,31,12,.28),
+        0 48px 80px rgba(33,31,12,.20);
+    }
+    /* Cream highlight sweep — top-left edge */
+    .final-cta-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(234,220,203,.08) 0%, transparent 40%),
+        radial-gradient(ellipse 480px 320px at 10% 10%, rgba(185,133,85,.12), transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    /* Subtle horizontal grain */
+    .final-cta-box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(255,253,247,.016) 0px,
+        rgba(255,253,247,.016) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .final-cta-box .blob-bean {
+      width: 380px; height: 380px;
+      right: -120px; bottom: -160px; left: auto;
+      top: auto;
+      transform: none;
+      opacity: 0.18;
+      animation: blob-breathe 9s ease-in-out infinite;
+    }
+    .final-cta-box > *:not(.blob-bean) { position: relative; z-index: 1; }
+
+    .final-title { color: var(--color-milk); max-width: 820px; margin: 0 auto 32px; font-size: clamp(28px, 3.5vw, 48px); }
+    .final-title em { color: var(--bean-soft); font-style: italic; }
+
+    .final-sub { font-size: 17px; color: rgba(255,253,247,.75); max-width: 440px; margin: 0 auto 40px; }
+
+    /* Primary button on dark: override to max-contrast green */
+    .final-cta-box .btn-primary {
+      background: var(--gradient-primary-strong);
+      box-shadow: 0 8px 24px rgba(85,113,36,.48), 0 2px 6px rgba(85,113,36,.30);
+      font-weight: 700;
+      font-size: 17px;
+      padding: 18px 32px;
+    }
+    .final-cta-box .btn-primary:hover {
+      background: linear-gradient(135deg, #8FAE4A 0%, #6F8F35 50%, #4A6120 100%);
+      box-shadow: 0 16px 40px rgba(85,113,36,.56);
+      transform: translateY(-3px);
+    }
+
+    .final-actions {
+      display: inline-flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    /* ==========================================================
+       15 · FOOTER
+       ========================================================== */
+    .site-footer {
+      background: var(--color-espresso);
+      color: var(--color-milk);
+      padding-top: 80px;
+      border-top: 1px solid rgba(139,94,60,.18);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+      gap: 40px;
+      padding-bottom: 48px;
+    }
+
+    .logo-dark { color: var(--color-milk); }
+    .logo-dark .logo-tag { color: rgba(255,253,247,.55); }
+
+    .footer-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,253,247,.68);
+      max-width: 300px;
+      margin: 16px 0 22px;
+    }
+
+    .socials { display: flex; gap: 10px; }
+    .socials a {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      background: rgba(33,31,12,.50);
+      color: var(--soy-cream);
+      border: 1px solid rgba(245,239,230,.18);
+      transition: background var(--t-fast), color var(--t-fast), border-color var(--t-fast);
+    }
+    .socials a:hover, .socials a:focus-visible {
+      background: var(--bean-deep);
+      color: var(--milk);
+      border-color: transparent;
+      outline: none;
+    }
+
+    .footer-title { color: var(--color-milk); }
+
+    .footer-links { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+    .footer-links a, .footer-links li { color: rgba(255,253,247,.65); transition: color var(--t-fast); }
+    .footer-links a:hover { color: var(--bean-soft); }
+
+    /* Accordion on mobile */
+    .footer-acc summary {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: default;
+    }
+    .footer-acc summary::-webkit-details-marker { display: none; }
+    .footer-acc summary h6 { margin: 0; }
+    .acc-icon { display: none; font-size: 18px; color: var(--bean-soft); transition: transform var(--t-fast); }
+
+    /* Newsletter */
+    .footer-news-desc { font-size: 13px; line-height: 1.5; color: rgba(255,253,247,.65); margin: -4px 0 14px; }
+    .news-form {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: rgba(255,253,247,.06);
+      border: 1px solid rgba(255,253,247,.16);
+      border-radius: var(--r-pill);
+      padding: 4px 4px 4px 18px;
+    }
+    .news-form input {
+      flex: 1;
+      background: transparent;
+      border: 0; outline: 0;
+      color: var(--milk);
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 10px 0;
+    }
+    .news-form input::placeholder { color: rgba(255,253,247,.4); }
+    .news-form button {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: var(--color-soy);
+      color: var(--color-milk);
+      font-size: 20px;
+      font-weight: 700;
+      transition: background var(--t-fast);
+    }
+    .news-form button:hover { background: var(--color-bean); }
+    .news-msg { position: absolute; bottom: -28px; left: 4px; font-size: 12px; color: var(--bean-soft); margin: 0; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 22px; padding-bottom: 22px;
+      border-top: 1px solid rgba(255,253,247,.08);
+      font-size: 12px;
+      color: rgba(255,253,247,.48);
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-legal a:hover { color: var(--bean-soft); }
+
+    /* ==========================================================
+       16 · UTILITIES
+       ========================================================== */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0);
+      white-space: nowrap; border: 0;
+    }
+    .center { text-align: center; }
+    .mt-32  { margin-top: 32px; }
+    .hide-mobile { display: inline-flex; }
+    .show-mobile { display: none; }
+
+    /* ==========================================================
+       17 · REVEAL ON SCROLL
+       ========================================================== */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease-out, transform .7s cubic-bezier(.2,.8,.2,1);
+    }
+    [data-reveal].is-visible { opacity: 1; transform: none; }
+
+    /* ==========================================================
+       18 · RESPONSIVE
+       ========================================================== */
+    @media (max-width: 1024px) {
+      .hero-grid { gap: 40px; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --sp-section: var(--sp-section-m); }
+      .container { padding-left: 20px; padding-right: 20px; }
+      .section { padding-top: var(--sp-section-m); padding-bottom: var(--sp-section-m); }
+
+      /* Header */
+      .header-inner {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-desktop, .header-cta { display: none; }
+      .nav-toggle { display: inline-flex; margin-left: auto; }
+
+      /* Hero */
+      .hero { padding-top: 32px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .hero-visual { order: -1; min-height: 320px; }
+      .blob-bean { width: 270px; height: 270px; top: 10px; }
+      .blob-coffee-accent { width: 140px; height: 140px; }
+      .cup { width: 108px; height: 164px; }
+      .cup-saucer { width: 105%; height: 11px; }
+      .cup-steam { top: -18px; }
+      .steam-line { height: 14px; }
+      .cups { gap: 12px; }
+      .hero-actions .btn { flex: 1; min-width: 140px; }
+      .trust-list { gap: 12px 16px; font-size: 13px; }
+      .hero-badge { font-size: 12px; padding: 8px 12px; }
+
+      /* Section heads */
+      .section-head { margin-bottom: 36px; }
+      .section-head.row { flex-direction: column; align-items: flex-start; }
+
+      /* Product split */
+      .split-grid { grid-template-columns: 1fr; gap: 18px; }
+      .split-card { padding: 36px 28px 44px; min-height: 260px; }
+
+      /* Story */
+      .story-grid { grid-template-columns: 1fr; gap: 36px; }
+      .story-stamp { right: 12px; top: 12px; font-size: 12px; padding: 8px 12px; }
+      .story-points { grid-template-columns: 1fr; gap: 12px; margin-top: 24px; }
+
+      /* Benefits */
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .benefit-card { padding: 24px 22px; }
+      .benefit-icon { width: 44px; height: 44px; margin-bottom: 16px; }
+
+      /* Menu */
+      .menu-grid { grid-template-columns: 1fr; gap: 18px; }
+
+      /* Process */
+      .process-list { grid-template-columns: 1fr; gap: 20px; padding-left: 32px; }
+      .process-list::before {
+        top: 16px; bottom: 16px;
+        left: 26px; right: auto;
+        border-top: 0;
+        border-left: 2px dashed rgba(255,253,247,.20);
+        height: auto;
+      }
+      .process-step { text-align: left; display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start; }
+      .step-num { width: 52px; height: 52px; margin: 0; position: relative; left: -52px; font-size: 16px; }
+      .step-body { padding: 20px 22px; }
+      .step-body .step-icon { margin: 0 0 12px; }
+
+      /* Testimonials */
+      .testi-grid { grid-template-columns: 1fr; gap: 14px; }
+      .testi-card { padding: 28px 24px; transform: none !important; }
+
+      /* Final CTA */
+      .final-cta-box { padding: 48px 28px; }
+      .final-actions { flex-direction: column; width: 100%; }
+      .final-actions .btn { width: 100%; }
+
+      /* Footer accordion */
+      .site-footer { padding-top: 56px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 0; padding-bottom: 24px; }
+      .footer-col { border-bottom: 1px solid rgba(255,253,247,.1); padding: 18px 0; }
+      .footer-col:last-child { border-bottom: 0; }
+      .footer-acc summary { cursor: pointer; padding: 4px 0; }
+      .acc-icon { display: inline-block; }
+      .footer-acc[open] .acc-icon { transform: rotate(45deg); }
+      .footer-acc .footer-links { margin-top: 14px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 16px; }
+
+      /* Utilities */
+      .hide-mobile { display: none; }
+      .show-mobile { display: block; }
+    }
+
+    @media (max-width: 420px) {
+      .hero-title { font-size: clamp(32px, 9vw, 42px); line-height: 1.12; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { width: 100%; }
+      .cup { width: 90px; height: 136px; }
+      .cup-saucer { height: 9px; }
+      .cup-steam { display: none; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .trust-list { display: flex; flex-direction: column; gap: 8px; }
+      .final-title { font-size: clamp(26px, 8vw, 32px); }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================ -->
+  <!-- 01 · HEADER                                  -->
+  <!-- ============================================ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a href="#home" class="logo" aria-label="BIBO — trang chủ">
+        <span class="logo-mark">BIBO</span>
+        <span class="logo-tag">Cafe &amp; Sữa Đậu Nành</span>
+      </a>
+
+      <nav class="nav-desktop" aria-label="Điều hướng chính">
+        <a href="#home"     class="is-active">Trang chủ</a>
+        <a href="#products">Sản phẩm</a>
+        <a href="#story">Câu chuyện</a>
+        <a href="#menu">Menu</a>
+        <a href="#contact">Liên hệ</a>
+      </nav>
+
+      <div class="header-cta">
+        <a href="#menu" class="btn btn-ghost">Xem menu</a>
+        <a href="tel:0932077136" class="btn btn-primary" aria-label="Gọi đặt BIBO qua số 0932077136">Đặt ngay</a>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Mở menu" aria-expanded="false" aria-controls="navMobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile drawer -->
+    <nav class="nav-mobile" id="navMobile" aria-label="Điều hướng di động">
+      <a href="#home">Trang chủ</a>
+      <a href="#products">Sản phẩm</a>
+      <a href="#story">Câu chuyện</a>
+      <a href="#menu">Menu</a>
+      <a href="#contact">Liên hệ</a>
+      <a href="tel:0932077136" class="btn btn-primary btn-full" aria-label="Gọi đặt BIBO qua số 0932077136">Đặt ngay →</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============================================ -->
+    <!-- 02 · HERO                                    -->
+    <!-- ============================================ -->
+    <section class="hero" id="home" data-reveal>
+      <div class="container hero-grid">
+
+        <div class="hero-copy">
+          <span class="eyebrow">Cafe đậm vị · Sữa đậu nành thanh lành</span>
+          <h1 class="hero-title">
+            <span class="keep-phrase">BIBO — <em>Cafe đậm vị</em>,</span><br>
+            <span class="keep-phrase">sữa đậu nành <em>dịu lành</em>.</span>
+          </h1>
+          <p class="hero-lede">
+            Thưởng thức cafe rang thơm và sữa đậu nành mềm mịn trong cùng một thương hiệu gần gũi, sạch và hiện đại.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#products" class="btn btn-primary btn-lg">Khám phá sản phẩm <span aria-hidden="true">→</span></a>
+            <a href="#menu"     class="btn btn-secondary btn-lg">Xem menu</a>
+          </div>
+
+          <ul class="trust-list" aria-label="Cam kết chất lượng">
+            <li><span class="check" aria-hidden="true">✓</span> Hạt rang mộc 24h</li>
+            <li><span class="check" aria-hidden="true">✓</span> Đậu nành non chọn lọc</li>
+            <li><span class="check" aria-hidden="true">✓</span> Không chất tạo ngọt</li>
+          </ul>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="blob blob-bean"></div>
+          <div class="blob blob-coffee-accent"></div>
+          <div class="hero-badge">BIBO Daily Drink ✦</div>
+          <div class="cups">
+            <div class="cup cup-coffee">
+              <div class="cup-steam">
+                <div class="steam-line"></div>
+                <div class="steam-line"></div>
+                <div class="steam-line"></div>
+              </div>
+              <div class="cup-lid"></div>
+              <div class="cup-body"><span class="cup-label">CAFE</span></div>
+              <div class="cup-saucer"></div>
+              <div class="cup-base"></div>
+            </div>
+            <div class="cup cup-soy">
+              <div class="cup-lid"></div>
+              <div class="cup-body"><span class="cup-label">SỮA ĐN</span></div>
+              <div class="cup-straw"></div>
+              <div class="cup-saucer"></div>
+              <div class="cup-base"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 03 · PRODUCT SPLIT                           -->
+    <!-- ============================================ -->
+    <section class="section product-split" id="products" data-reveal>
+      <div class="container">
+        <header class="section-head center">
+          <span class="eyebrow">Hai dòng sản phẩm</span>
+          <h2 class="section-title">Chọn vị BIBO <em>theo nhịp ngày</em> của bạn.</h2>
+          <p style="color:var(--ink-soft);max-width:520px;margin:0 auto;">Dù bạn cần một buổi sáng tỉnh táo hay một khoảnh khắc thư giãn dịu dàng — BIBO luôn có vị dành cho bạn.</p>
+        </header>
+
+        <div class="split-grid">
+
+          <article class="split-card split-coffee">
+            <div>
+              <div class="split-tag">
+                <span class="dot"></span>
+                <span>Dòng 01 · Đậm</span>
+              </div>
+              <h3 class="split-title">BIBO Cafe</h3>
+              <p class="split-desc">Dòng cafe rang mộc cho buổi sáng tỉnh táo — hậu vị ngọt nhẹ, không cần chất tạo ngọt.</p>
+              <div class="split-tags-row">
+                <span class="tag-pill tag-pill-light">Đậm vị</span>
+                <span class="tag-pill tag-pill-light">Rang thơm</span>
+                <span class="tag-pill tag-pill-light">Tỉnh táo</span>
+              </div>
+            </div>
+            <a href="#menu" class="split-link split-link-light">
+              Tìm hiểu BIBO Cafe <span aria-hidden="true">→</span>
+            </a>
+            <div class="split-illo">
+              <div class="cup mini cup-coffee">
+                <div class="cup-lid"></div>
+                <div class="cup-body"></div>
+                <div class="cup-base"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="split-card split-soy">
+            <div>
+              <div class="split-tag tag-bean">
+                <span class="dot"></span>
+                <span>Dòng 02 · Dịu</span>
+              </div>
+              <h3 class="split-title">BIBO Sữa Đậu Nành</h3>
+              <p class="split-desc">Sữa đậu nành non, mịn mượt, thanh nhẹ — phù hợp cho mọi nhịp uống trong ngày.</p>
+              <div class="split-tags-row">
+                <span class="tag-pill tag-pill-bean">Thanh lành</span>
+                <span class="tag-pill tag-pill-bean">Mềm mịn</span>
+                <span class="tag-pill tag-pill-bean">Dễ uống</span>
+              </div>
+            </div>
+            <a href="#menu" class="split-link split-link-bean">
+              Tìm hiểu Sữa Đậu Nành <span aria-hidden="true">→</span>
+            </a>
+            <div class="split-illo">
+              <div class="cup mini cup-soy">
+                <div class="cup-lid"></div>
+                <div class="cup-body"></div>
+                <div class="cup-base"></div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 04 · BRAND STORY                             -->
+    <!-- ============================================ -->
+    <section class="section story" id="story" data-reveal>
+      <div class="container story-grid">
+
+        <div class="story-media">
+          <div class="placeholder placeholder-4x5">
+            <span>Nguyên liệu · hạt cafe &amp; đậu nành</span>
+          </div>
+          <div class="story-stamp">Est. BIBO · VN</div>
+        </div>
+
+        <div class="story-copy">
+          <span class="eyebrow">Câu chuyện BIBO</span>
+          <h2 class="section-title">Từ những nguyên liệu quen thuộc, BIBO tạo nên hương vị uống <em>mỗi ngày.</em></h2>
+          <p style="color:var(--ink-soft);">
+            BIBO ra đời từ một thói quen rất đời: ly cafe sáng và ly sữa đậu nành chiều. Chúng tôi kết hợp hai vị quen thuộc ấy thành một thương hiệu — nơi cafe đậm vị gặp đậu nành non, được pha mỗi ngày bằng nguyên liệu sạch và công thức cân bằng.
+          </p>
+          <p style="color:var(--ink-soft);">
+            Không cần thêm phức tạp. Chỉ cần đúng vị, đúng lúc.
+          </p>
+
+          <ul class="story-points">
+            <li>
+              <h4>Nguyên liệu chọn lọc</h4>
+              <p>Hạt rang mộc 24 giờ, đậu nành non chọn từ vùng nguyên liệu Việt.</p>
+            </li>
+            <li>
+              <h4>Hương vị cân bằng</h4>
+              <p>Không chát gắt, không gây nặng bụng — uống được mỗi ngày.</p>
+            </li>
+            <li>
+              <h4>Thiết kế hiện đại</h4>
+              <p>Bao bì tối giản, ấm áp — phù hợp uống tại quán lẫn mang đi.</p>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 05 · BENEFITS                                -->
+    <!-- ============================================ -->
+    <section class="section benefits" data-reveal>
+      <div class="container">
+        <header class="section-head center">
+          <span class="eyebrow">Vì sao chọn BIBO</span>
+          <h2 class="section-title">Đồ uống quen thuộc, được làm mới <em>theo cách hiện đại.</em></h2>
+        </header>
+
+        <div class="benefits-grid">
+
+          <article class="benefit-card">
+            <div class="benefit-num">01</div>
+            <div class="benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 22h24"/><path d="M6 22l5-10 4 6 4-8 7 12"/>
+              </svg>
+            </div>
+            <h4>Vị cân bằng</h4>
+            <p>Không quá gắt, không quá ngọt — phù hợp để uống mỗi ngày mà không cảm thấy nặng.</p>
+          </article>
+
+          <article class="benefit-card">
+            <div class="benefit-num">02</div>
+            <div class="benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 3c4 4 4 9 0 14-4-5-4-10 0-14z"/><path d="M16 17v12"/>
+              </svg>
+            </div>
+            <h4>Nguyên liệu gần gũi</h4>
+            <p>Cafe và đậu nành là hai hương vị quen thuộc với người Việt từ lâu.</p>
+          </article>
+
+          <article class="benefit-card">
+            <div class="benefit-num">03</div>
+            <div class="benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="16" cy="16" r="11"/><path d="M16 9v7l5 3"/>
+              </svg>
+            </div>
+            <h4>Dễ thành thói quen</h4>
+            <p>Một lựa chọn nhẹ nhàng cho buổi sáng, giờ nghỉ hoặc sau bữa ăn.</p>
+          </article>
+
+          <article class="benefit-card">
+            <div class="benefit-num">04</div>
+            <div class="benefit-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="5" width="22" height="22" rx="3"/><circle cx="11" cy="12" r="2"/><path d="M5 22l6-5 5 4 5-6 6 5"/>
+              </svg>
+            </div>
+            <h4>Hình ảnh trẻ trung</h4>
+            <p>Thiết kế sạch, hiện đại, dễ ghi nhớ và dễ chia sẻ.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 06 · MENU / BEST SELLERS                     -->
+    <!-- ============================================ -->
+    <section class="section menu-section" id="menu" data-reveal>
+      <div class="container">
+        <header class="section-head row">
+          <div>
+            <span class="eyebrow">Menu nổi bật</span>
+            <h2 class="section-title">Những vị BIBO <em>được yêu thích.</em></h2>
+          </div>
+          <a href="#contact" class="btn btn-ghost btn-md hide-mobile">Xem toàn bộ menu →</a>
+        </header>
+
+        <div class="menu-grid" id="menuGrid">
+          <!-- Injected by JS below -->
+        </div>
+
+        <div class="show-mobile center mt-32">
+          <a href="#contact" class="btn btn-ghost">Xem toàn bộ menu →</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 07 · PROCESS                                 -->
+    <!-- ============================================ -->
+    <section class="section process" data-reveal>
+      <div class="container">
+        <header class="section-head center">
+          <span class="eyebrow" style="color:var(--bean-soft);">Từ nguyên liệu đến ly BIBO</span>
+          <h2 class="section-title" style="color:var(--milk);">Quy trình đơn giản, <em style="color:var(--bean-soft);">hương vị chỉn chu.</em></h2>
+        </header>
+
+        <ol class="process-list">
+          <li class="process-step">
+            <div class="step-num">01</div>
+            <div class="step-body">
+              <div class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="16" cy="14" rx="6" ry="9"/><path d="M11 12c2 0 3-1 5-1s3 1 5 1"/>
+                </svg>
+              </div>
+              <h4>Chọn hạt</h4>
+              <p>Cafe và đậu nành được chọn lọc kỹ từ nguồn uy tín, kiểm chất lượng từng mẻ.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <div class="step-num">02</div>
+            <div class="step-body">
+              <div class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 26V14a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v12"/><path d="M6 26h20"/><path d="M14 6v4M18 6v4"/>
+                </svg>
+              </div>
+              <h4>Pha chế</h4>
+              <p>Giữ vị thơm, mềm và cân bằng — pha theo công thức BIBO, không quá đậm, không quá nhạt.</p>
+            </div>
+          </li>
+          <li class="process-step">
+            <div class="step-num">03</div>
+            <div class="step-body">
+              <div class="step-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M8 12h12a4 4 0 0 1 0 8H8z"/><path d="M20 14h2a3 3 0 0 1 0 6h-2"/><path d="M10 4c0 1.5 1.5 1.5 1.5 4M14 4c0 1.5 1.5 1.5 1.5 4M18 4c0 1.5 1.5 1.5 1.5 4"/>
+                </svg>
+              </div>
+              <h4>Phục vụ</h4>
+              <p>Đồ uống mới, sạch, dễ thưởng thức — uống tại quán hay mang đi đều ấm.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 08 · TESTIMONIALS                            -->
+    <!-- ============================================ -->
+    <section class="section testimonials" data-reveal>
+      <div class="container">
+        <header class="section-head center">
+          <span class="eyebrow">Khách hàng nói gì</span>
+          <h2 class="section-title">Một hương vị dễ trở thành <em>thói quen.</em></h2>
+        </header>
+
+        <div class="testi-grid">
+
+          <figure class="testi-card">
+            <div class="quote-mark" aria-hidden="true">"</div>
+            <blockquote>
+              <p>Cafe thơm nhưng không quá gắt, sữa đậu nành rất dễ uống. Mình hay ghé vào buổi sáng trước khi đi làm.</p>
+            </blockquote>
+            <figcaption>
+              <div class="avatar" aria-hidden="true">MA</div>
+              <div>
+                <div class="testi-name">Minh Anh</div>
+                <div class="testi-role">Khách hàng thường xuyên</div>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="testi-card">
+            <div class="quote-mark" aria-hidden="true">"</div>
+            <blockquote>
+              <p>Mình thích cách BIBO kết hợp giữa vị quen thuộc và hình ảnh hiện đại. Vừa uống được, vừa nhìn đẹp.</p>
+            </blockquote>
+            <figcaption>
+              <div class="avatar" aria-hidden="true">HN</div>
+              <div>
+                <div class="testi-name">Hoàng Nam</div>
+                <div class="testi-role">Thiết kế đồ họa</div>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="testi-card">
+            <div class="quote-mark" aria-hidden="true">"</div>
+            <blockquote>
+              <p>Ly Cafe Đậu Nành khá lạ, uống êm và hợp để bắt đầu ngày mới. Mình đã trở thành khách quen rồi.</p>
+            </blockquote>
+            <figcaption>
+              <div class="avatar" aria-hidden="true">GH</div>
+              <div>
+                <div class="testi-name">Gia Hân</div>
+                <div class="testi-role">Giáo viên</div>
+              </div>
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 09 · FINAL CTA                              -->
+    <!-- ============================================ -->
+    <section class="final-cta" data-reveal>
+      <div class="container">
+        <div class="final-cta-box">
+          <div class="blob blob-bean" aria-hidden="true"></div>
+
+          <span class="eyebrow eyebrow-on-dark">Sẵn sàng thử BIBO?</span>
+          <h2 class="final-title">
+            Chọn một ly cafe <em>đậm vị</em> —<br/>
+            hoặc một ly sữa đậu nành <em>dịu lành</em> hôm nay.
+          </h2>
+          <p class="final-sub">
+            Dù bạn cần sự tỉnh táo hay một khoảnh khắc thư giãn — BIBO luôn có lựa chọn phù hợp.
+          </p>
+          <div class="final-actions">
+            <a href="tel:0932077136" class="btn btn-primary btn-lg" aria-label="Gọi đặt BIBO qua số 0932077136">Đặt BIBO ngay <span aria-hidden="true">→</span></a>
+            <a href="#menu"    class="btn btn-on-dark-ghost btn-lg">Xem menu</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================ -->
+    <!-- 10 · FOOTER                                  -->
+    <!-- ============================================ -->
+    <footer class="site-footer" id="contact">
+      <div class="container footer-grid">
+
+        <div class="footer-col footer-brand">
+          <div class="logo logo-dark">
+            <span class="logo-mark">BIBO</span>
+            <span class="logo-tag">Cafe &amp; Sữa Đậu Nành</span>
+          </div>
+          <p class="footer-desc">Cafe đậm vị, sữa đậu nành dịu lành. Sạch, gần gũi, hiện đại — mỗi ngày một ly BIBO.</p>
+          <div class="socials" aria-label="Mạng xã hội">
+            <a href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v7h4v-7h3l1-4h-4V8z"/></svg>
+            </a>
+            <a href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 4v9a4 4 0 1 1-4-4"/><path d="M14 4c0 3 2 5 5 5"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <details class="footer-col footer-acc" open>
+          <summary><h6 class="footer-title">Khám phá</h6><span class="acc-icon" aria-hidden="true">+</span></summary>
+          <ul class="footer-links">
+            <li><a href="#home">Trang chủ</a></li>
+            <li><a href="#products">Sản phẩm</a></li>
+            <li><a href="#story">Câu chuyện</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#contact">Liên hệ</a></li>
+          </ul>
+        </details>
+
+        <details class="footer-col footer-acc" open>
+          <summary><h6 class="footer-title">Liên hệ</h6><span class="acc-icon" aria-hidden="true">+</span></summary>
+          <ul class="footer-links">
+            <li>123 Nguyễn Văn Cừ, Q.5, TP.HCM</li>
+            <li><a href="tel:0932077136">0932 077 136</a></li>
+            <li><a href="mailto:hello@bibo.vn">hello@bibo.vn</a></li>
+            <li>Giờ mở: 6:30 — 22:00 mỗi ngày</li>
+          </ul>
+        </details>
+
+        <div class="footer-col footer-news">
+          <h6 class="footer-title">Đăng ký nhận ưu đãi</h6>
+          <p class="footer-news-desc">Thi thoảng — không spam. Một tin nhắn ấm khi BIBO có vị mới.</p>
+          <form class="news-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('.news-msg').hidden=false;">
+            <label class="sr-only" for="newsEmail">Email của bạn</label>
+            <input id="newsEmail" type="email" placeholder="email@cuaban.vn" required />
+            <button type="submit" aria-label="Gửi"><span aria-hidden="true">→</span></button>
+            <p class="news-msg" hidden>Cảm ơn bạn — BIBO sẽ gửi ưu đãi sớm.</p>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="container footer-bottom">
+        <span>© 2026 BIBO. Made with ♥ in Việt Nam.</span>
+        <span class="footer-legal">
+          <a href="#">Chính sách</a> · <a href="#">Điều khoản</a> · <a href="#">FAQ</a>
+        </span>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    /* ==========================================================
+       BIBO Landing Page · Inline JavaScript
+       NOTE: styles.css and script.js are no longer needed —
+       all styles and scripts are now self-contained in this file.
+       ----------------------------------------------------------
+       01 · Product data (editable)
+       02 · Render menu grid
+       03 · Sticky header
+       04 · Mobile nav toggle
+       05 · Active nav on scroll
+       06 · Reveal on scroll (IntersectionObserver)
+       ========================================================== */
+
+
+    /* ----------------------------------------------------------
+       01 · PRODUCT DATA
+       ---------------------------------------------------------- */
+    const PRODUCTS = [
+      {
+        id: 'cafe-sua',
+        name: 'BIBO Cafe Sữa',
+        desc: 'Cafe rang mộc kết hợp sữa tươi nguyên kem — đậm vị, hậu dịu.',
+        price: '29.000đ',
+        label: 'BIBO Cafe Sữa',
+        signature: false,
+      },
+      {
+        id: 'cafe-dau-nanh',
+        name: 'Cafe Đậu Nành BIBO',
+        desc: 'Signature — cafe đậm gặp sữa đậu nành non. Độc bản của BIBO.',
+        price: '32.000đ',
+        label: 'Cafe Đậu Nành BIBO',
+        signature: true,
+      },
+      {
+        id: 'sua-dau-nanh',
+        name: 'Sữa Đậu Nành Nguyên Vị',
+        desc: 'Đậu nành non, mịn mượt, thanh nhẹ — uống cả ngày không ngán.',
+        price: '25.000đ',
+        label: 'Sữa Đậu Nành Nguyên Vị',
+        signature: false,
+      },
+    ];
+
+
+    /* ----------------------------------------------------------
+       02 · RENDER MENU GRID
+       ---------------------------------------------------------- */
+    function renderMenu() {
+      const grid = document.getElementById('menuGrid');
+      if (!grid) return;
+
+      grid.innerHTML = PRODUCTS.map(p => `
+        <article class="product-card ${p.signature ? 'is-signature' : ''}" data-reveal>
+          ${p.signature ? '<span class="product-ribbon">★ Signature</span>' : ''}
+          <div class="product-img" aria-hidden="true">
+            <span class="product-label">${p.label}</span>
+          </div>
+          <div class="product-body">
+            <h3>${p.name}</h3>
+            <p class="product-desc">${p.desc}</p>
+            <div class="product-meta">
+              <span class="product-price">${p.price}</span>
+              <a href="#contact" class="btn btn-primary btn-md">+ Đặt</a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      // Attach reveal to newly injected cards
+      attachReveal(grid.querySelectorAll('[data-reveal]'));
+    }
+
+
+    /* ----------------------------------------------------------
+       03 · STICKY HEADER
+       ---------------------------------------------------------- */
+    function initStickyHeader() {
+      const header = document.getElementById('siteHeader');
+      if (!header) return;
+      let ticking = false;
+      const update = () => {
+        header.classList.toggle('is-scrolled', window.scrollY > 40);
+        ticking = false;
+      };
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }, { passive: true });
+      update();
+    }
+
+
+    /* ----------------------------------------------------------
+       04 · MOBILE NAV TOGGLE
+       ---------------------------------------------------------- */
+    function initMobileNav() {
+      const toggle = document.getElementById('navToggle');
+      const drawer = document.getElementById('navMobile');
+      if (!toggle || !drawer) return;
+
+      const close = () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        drawer.classList.remove('is-open');
+        document.body.style.overflow = '';
+      };
+      const open = () => {
+        toggle.setAttribute('aria-expanded', 'true');
+        drawer.classList.add('is-open');
+      };
+
+      toggle.addEventListener('click', () => {
+        toggle.getAttribute('aria-expanded') === 'true' ? close() : open();
+      });
+
+      drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+      window.addEventListener('resize', () => { if (window.innerWidth > 768) close(); });
+    }
+
+
+    /* ----------------------------------------------------------
+       05 · ACTIVE NAV ON SCROLL
+       ---------------------------------------------------------- */
+    function initActiveNav() {
+      const ids = ['home', 'products', 'story', 'menu', 'contact'];
+      const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
+      const links = document.querySelectorAll('.nav-desktop a');
+      if (!sections.length || !links.length) return;
+
+      const setActive = id => {
+        links.forEach(a => {
+          const href = a.getAttribute('href').replace('#', '');
+          a.classList.toggle('is-active', href === id);
+        });
+      };
+
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+      sections.forEach(s => io.observe(s));
+    }
+
+
+    /* ----------------------------------------------------------
+       06 · REVEAL ON SCROLL
+       ---------------------------------------------------------- */
+    let revealObserver = null;
+
+    function attachReveal(nodes) {
+      if (!revealObserver) {
+        revealObserver = new IntersectionObserver(entries => {
+          entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+              const delay = Math.min(i * 60, 240);
+              setTimeout(() => entry.target.classList.add('is-visible'), delay);
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+      }
+      nodes.forEach(n => revealObserver.observe(n));
+    }
+
+    function initReveal() {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const nodes = document.querySelectorAll('[data-reveal]');
+      if (reduce) { nodes.forEach(n => n.classList.add('is-visible')); return; }
+      attachReveal(nodes);
+    }
+
+
+    /* ----------------------------------------------------------
+       INIT
+       ---------------------------------------------------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      renderMenu();
+      initStickyHeader();
+      initMobileNav();
+      initActiveNav();
+      initReveal();
+    });
+  </script>
+</body>
+</html>
