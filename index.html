@@ -385,7 +385,10 @@
       font-weight: 700;
       font-size: 26px;
       letter-spacing: 0.5px;
+      transition: font-size var(--t-base);
     }
+    .site-header.is-scrolled .logo-mark { font-size: 22px; }
+
     .logo-tag {
       font-family: var(--font-body);
       font-size: 11px;
@@ -394,6 +397,10 @@
       text-transform: uppercase;
       color: var(--ink-soft);
       margin-top: 4px;
+      transition: opacity var(--t-fast), max-height var(--t-fast), margin var(--t-fast);
+      max-height: 20px;
+      overflow: hidden;
+      opacity: 1;
     }
 
     .nav-desktop {
@@ -436,6 +443,7 @@
       flex-direction: column;
       gap: 4px;
       padding: 0;
+      transition: width var(--t-base), height var(--t-base), background var(--t-fast);
     }
     .nav-toggle span {
       display: block;
@@ -1432,6 +1440,19 @@
       }
       .nav-desktop, .header-cta { display: none; }
       .nav-toggle { display: inline-flex; margin-left: auto; }
+
+      .site-header.is-scrolled .header-inner {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      .site-header.is-scrolled .logo-tag {
+        opacity: 0;
+        max-height: 0;
+        margin-top: 0;
+      }
+      .site-header.is-scrolled .nav-toggle {
+        width: 40px; height: 40px;
+      }
 
       /* Hero */
       .hero { padding-top: 32px; }
