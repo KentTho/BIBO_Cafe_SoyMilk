@@ -2021,6 +2021,10 @@
       border-color: var(--color-caramel);
     }
 
+    .bbo-floating-widget.is-armed .bbo-floating-link {
+      border-color: var(--color-soy);
+    }
+
     .bbo-floating-logo {
       width: 40px;
       height: 40px;
@@ -2150,13 +2154,13 @@
       transition: all var(--t-base);
       padding: 0;
     }
-    
+
     .scroll-progress-top.is-visible {
       opacity: 1;
       pointer-events: auto;
       transform: translateY(0) scale(1);
     }
-    
+
     .scroll-progress-top:hover,
     .scroll-progress-top:focus-visible {
       background: var(--color-milk);
@@ -2165,7 +2169,7 @@
       transform: translateY(-2px) scale(1);
       box-shadow: var(--sh-3);
     }
-    
+
     .scroll-progress-top:active {
       transform: translateY(0) scale(.96);
     }
@@ -2179,13 +2183,13 @@
       transform: rotate(-90deg);
       pointer-events: none;
     }
-    
+
     .scroll-progress-track {
       fill: none;
       stroke: rgba(75, 46, 31, .06);
       stroke-width: 2.5;
     }
-    
+
     .scroll-progress-value {
       fill: none;
       stroke: var(--color-soy);
@@ -2448,7 +2452,7 @@
         margin: 0;
         font-size: 14px;
       }
-      
+
       .step-num::after {
         inset: -4px;
       }
@@ -2597,8 +2601,17 @@
     }
 
     @keyframes softPulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 4px 16px rgba(33, 31, 12, .35); }
-      50% { transform: scale(1.04); box-shadow: 0 8px 24px rgba(33, 31, 12, .45); }
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 4px 16px rgba(33, 31, 12, .35);
+      }
+
+      50% {
+        transform: scale(1.04);
+        box-shadow: 0 8px 24px rgba(33, 31, 12, .45);
+      }
     }
 
     /* Reduced motion */
@@ -3355,25 +3368,88 @@
        ---------------------------------------------------------- */
     function initBboWidget() {
       const widget = document.getElementById("bbo-floating-widget");
-      if (!widget) return;
-      let timer;
+      const link = widget?.querySelector(".bbo-floating-link");
+      if (!widget || !link) return;
 
-      const BBO_WIDGET_VISIBLE_MS = 10000;
+      const BBO_PREVIEW_IDLE_MS = 2600;
+      const BBO_ARMED_IDLE_MS = 6000;
 
-      function showBBO() {
-        widget.classList.add("is-active");
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          widget.classList.remove("is-active");
-        }, BBO_WIDGET_VISIBLE_MS);
+      let collapseTimer;
+      let armedTimer;
+      let isArmed = false;
+      let isPointerInside = false;
+
+      function setExpanded(expanded) {
+        widget.classList.toggle("is-active", expanded);
+        link.setAttribute("aria-expanded", expanded ? "true" : "false");
+      }
+
+      function collapse() {
+        if (isPointerInside) return;
+        isArmed = false;
+        widget.classList.remove("is-armed");
+        setExpanded(false);
+      }
+
+      function previewExpand() {
+        if (!widget) return;
+        if (isPointerInside || isArmed) return;
+
+        setExpanded(true);
+        clearTimeout(collapseTimer);
+        collapseTimer = setTimeout(collapse, BBO_PREVIEW_IDLE_MS);
+      }
+
+      function armWidget() {
+        isArmed = true;
+        widget.classList.add("is-armed");
+        setExpanded(true);
+
+        clearTimeout(armedTimer);
+        armedTimer = setTimeout(() => {
+          isArmed = false;
+          widget.classList.remove("is-armed");
+          if (!isPointerInside) collapse();
+        }, BBO_ARMED_IDLE_MS);
       }
 
       ["scroll", "touchmove", "touchstart"].forEach((eventName) => {
-        window.addEventListener(eventName, showBBO, { passive: true });
+        window.addEventListener(eventName, previewExpand, { passive: true });
       });
 
-      widget.addEventListener("mouseenter", showBBO);
-      widget.addEventListener("focusin", showBBO);
+      widget.addEventListener("mouseenter", () => {
+        isPointerInside = true;
+        setExpanded(true);
+      });
+
+      widget.addEventListener("mouseleave", () => {
+        isPointerInside = false;
+        if (!isArmed) {
+          collapseTimer = setTimeout(collapse, 500);
+        }
+      });
+
+      widget.addEventListener("focusin", () => {
+        isPointerInside = true;
+        setExpanded(true);
+      });
+
+      widget.addEventListener("focusout", () => {
+        isPointerInside = false;
+        if (!isArmed) {
+          collapseTimer = setTimeout(collapse, 500);
+        }
+      });
+
+      link.addEventListener("click", (event) => {
+        if (!isArmed) {
+          event.preventDefault();
+          armWidget();
+          return;
+        }
+      });
+
+      link.setAttribute("aria-expanded", "false");
     }
 
     /* ----------------------------------------------------------
@@ -3449,8 +3525,8 @@
 
   <!-- BBO Floating Widget -->
   <div class="bbo-floating-widget" id="bbo-floating-widget">
-    <a class="bbo-floating-link" href="https://bbotech.vn/vi/waas-website-solutions/" target="_blank"
-      rel="noopener noreferrer" aria-label="BBO Team - Đối tác công nghệ">
+    <a class="bbo-floating-link" href="https://store.bbotech.vn/" target="_blank" rel="noopener noreferrer"
+      aria-label="BBO Team - Đối tác công nghệ">
       <div class="bbo-floating-logo">
         <img src="img/logo_bbo_team_white.jpg" alt="" srcset="">
         <div class="bbo-status-dot"></div>
