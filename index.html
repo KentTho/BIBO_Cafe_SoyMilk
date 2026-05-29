@@ -139,7 +139,7 @@
       font-size: var(--fs-body);
       line-height: 1.65;
       color: var(--color-espresso);
-      background: var(--color-milk);
+      background: var(--color-cream);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
@@ -195,7 +195,7 @@
        ========================================================== */
     h1, h2, h3, h4 {
       font-family: var(--font-heading);
-      color: var(--color-coffee);
+      color: var(--color-espresso);
       margin: 0 0 16px;
       font-weight: 600;
       line-height: 1.15;
@@ -242,8 +242,8 @@
     h4 {
       font-size: var(--fs-h4);
       font-family: var(--font-body);
-      font-weight: 600;
-      color: var(--color-roast);
+      font-weight: 700;
+      color: var(--color-coffee);
       letter-spacing: 0;
       line-height: 1.3;
     }
@@ -711,7 +711,7 @@
     /* ==========================================================
        08 · PRODUCT SPLIT
        ========================================================== */
-    .product-split { background: var(--color-milk); }
+    .product-split { background: var(--color-cream); }
 
     .split-grid {
       display: grid;
@@ -738,11 +738,12 @@
       background: var(--gradient-coffee);
       color: var(--color-milk);
     }
-    /* Light soy card */
+    /* Light soy card — elevated milk surface with oat definition */
     .split-soy {
-      background: var(--color-cream);
+      background: linear-gradient(148deg, var(--color-milk) 0%, #EDE3D4 100%);
       color: var(--color-coffee);
-      border: 1px solid var(--line);
+      border: 1.5px solid var(--color-oat);
+      box-shadow: 0 2px 8px rgba(75,46,31,.06), 0 12px 32px rgba(75,46,31,.10);
     }
     .split-coffee h3 { color: var(--color-milk); }
     .split-coffee .split-desc { color: rgba(255,253,247,.80); }
@@ -816,7 +817,7 @@
     /* ==========================================================
        09 · BRAND STORY
        ========================================================== */
-    .story { background: var(--color-cream); }
+    .story { background: var(--color-milk); }
 
     .story-grid {
       display: grid;
@@ -830,12 +831,13 @@
     .placeholder {
       border-radius: var(--r-lg);
       background:
-        repeating-linear-gradient(135deg, rgba(75,46,31,.06) 0 8px, transparent 8px 18px),
-        var(--milk);
-      border: 1px solid var(--line);
+        repeating-linear-gradient(135deg, rgba(75,46,31,.07) 0 8px, transparent 8px 18px),
+        linear-gradient(160deg, var(--color-milk) 0%, var(--color-oat) 100%);
+      border: 1.5px solid var(--color-oat);
+      box-shadow: 0 4px 12px rgba(75,46,31,.08), 0 16px 40px rgba(75,46,31,.09);
       display: grid;
       place-items: center;
-      color: var(--ink-soft);
+      color: var(--color-roast);
       font-family: var(--font-body);
       font-size: 12px;
       letter-spacing: 0.15em;
@@ -875,8 +877,8 @@
     .story-points li {
       padding: 20px 20px 22px;
       border-radius: var(--r-md);
-      background: var(--color-milk);
-      border: 1px solid var(--line);
+      background: var(--color-cream);
+      border: 1px solid var(--color-oat);
       box-shadow: var(--sh-1);
     }
     .story-points h4 {
@@ -900,15 +902,15 @@
     .benefit-card {
       padding: 32px 28px;
       border-radius: var(--r-xl);
-      background: var(--color-cream);
-      border: 1px solid var(--line);
-      box-shadow: var(--sh-1);
-      transition: transform var(--t-base), box-shadow var(--t-base);
+      background: linear-gradient(160deg, #FFFDF7 0%, #F5EFE6 100%);
+      border: 1px solid var(--color-oat);
+      box-shadow: var(--sh-2);
+      transition: transform var(--t-base), box-shadow var(--t-base), border-color var(--t-base);
     }
     .benefit-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--sh-3);
-      border-color: rgba(139,94,60,.22);
+      border-color: var(--color-caramel);
     }
 
     .benefit-num {
@@ -927,10 +929,11 @@
       color: var(--color-coffee);
       display: grid; place-items: center;
       margin-bottom: 20px;
+      border: 1px solid var(--color-oat);
       box-shadow: var(--sh-1);
     }
-    .benefit-card h4 { margin: 0 0 6px; color: var(--color-coffee); }
-    .benefit-card p { font-size: 14px; color: var(--color-roast); opacity: .80; line-height: 1.6; margin: 0; }
+    .benefit-card h4 { margin: 0 0 6px; color: var(--color-coffee); font-weight: 700; }
+    .benefit-card p { font-size: 14px; color: var(--color-roast); line-height: 1.6; margin: 0; }
 
     /* ==========================================================
        11 · MENU / BEST SELLERS
@@ -946,15 +949,15 @@
     .product-card {
       position: relative;
       background: var(--color-milk);
-      border: 1px solid var(--line);
+      border: 1px solid var(--color-oat);
       border-radius: var(--r-xl);
       overflow: hidden;
       box-shadow: var(--sh-2);
-      transition: transform var(--t-base), box-shadow var(--t-base);
+      transition: transform var(--t-base), box-shadow var(--t-base), border-color var(--t-base);
       display: flex;
       flex-direction: column;
     }
-    .product-card:hover { transform: translateY(-5px); box-shadow: var(--sh-3); }
+    .product-card:hover { transform: translateY(-5px); box-shadow: var(--sh-3); border-color: var(--color-caramel); }
 
     /* Signature card: green ring + top gradient strip */
     .product-card.is-signature {
@@ -975,8 +978,8 @@
       aspect-ratio: 4 / 3;
       position: relative;
       background:
-        repeating-linear-gradient(135deg, rgba(75,46,31,.06) 0 8px, transparent 8px 18px),
-        var(--color-cream);
+        repeating-linear-gradient(135deg, rgba(75,46,31,.05) 0 8px, transparent 8px 18px),
+        linear-gradient(180deg, var(--color-cream) 0%, var(--color-oat) 100%);
       display: grid;
       place-items: center;
       color: var(--color-roast);
@@ -1033,7 +1036,7 @@
       font-family: var(--font-heading);
       font-weight: 700;
       font-size: 18px;
-      color: var(--color-coffee);
+      color: var(--color-bean);
     }
 
     /* ==========================================================
@@ -1117,13 +1120,13 @@
     }
 
     .step-body {
-      background: rgba(255,253,247,.07);
+      background: rgba(255,253,247,.10);
       border-radius: var(--r-xl);
       padding: 28px 28px 30px;
-      border: 1px solid rgba(255,253,247,.12);
+      border: 1px solid rgba(255,253,247,.16);
       backdrop-filter: blur(4px);
       -webkit-backdrop-filter: blur(4px);
-      box-shadow: inset 0 1px 0 rgba(255,253,247,.08);
+      box-shadow: inset 0 1px 0 rgba(255,253,247,.10), 0 4px 12px rgba(33,31,12,.20);
     }
     .step-body .step-icon {
       width: 44px; height: 44px;
@@ -1140,7 +1143,7 @@
     /* ==========================================================
        13 · TESTIMONIALS
        ========================================================== */
-    .testimonials { background: var(--color-milk); }
+    .testimonials { background: var(--color-cream); }
 
     .testi-grid {
       display: grid;
@@ -1150,12 +1153,12 @@
 
     .testi-card {
       position: relative;
-      background: var(--color-cream);
-      border: 1px solid var(--line);
+      background: var(--color-milk);
+      border: 1px solid var(--color-oat);
       border-radius: var(--r-xl);
       padding: 36px 30px 28px;
       margin: 0;
-      box-shadow: var(--sh-1);
+      box-shadow: var(--sh-2);
       transition: transform var(--t-base), box-shadow var(--t-base);
     }
     .testi-card:nth-child(1) { transform: rotate(-0.4deg); }
@@ -1291,7 +1294,7 @@
       background: var(--color-espresso);
       color: var(--color-milk);
       padding-top: 80px;
-      border-top: 1px solid rgba(139,94,60,.18);
+      border-top: 2px solid rgba(139,94,60,.28);
     }
 
     .footer-grid {
