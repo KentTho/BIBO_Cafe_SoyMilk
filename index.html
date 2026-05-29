@@ -130,7 +130,7 @@
        ========================================================== */
     *, *::before, *::after { box-sizing: border-box; }
 
-    html, body { overflow-x: hidden; }
+    html, body { overflow-x: clip; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
@@ -348,7 +348,7 @@
     .site-header {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 900;
       background: rgba(255,253,247,.88);
       backdrop-filter: saturate(150%) blur(16px);
       -webkit-backdrop-filter: saturate(150%) blur(16px);
@@ -1420,7 +1420,145 @@
     [data-reveal].is-visible { opacity: 1; transform: none; }
 
     /* ==========================================================
-       18 · RESPONSIVE
+       18 · BBO FLOATING WIDGET
+       ========================================================== */
+    .bbo-floating-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      pointer-events: none;
+    }
+    .bbo-floating-link {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      background: rgba(255,253,247,.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--color-oat);
+      padding: 6px;
+      border-radius: var(--r-pill);
+      box-shadow: var(--sh-2);
+      text-decoration: none;
+      color: var(--color-espresso);
+      transition: all var(--t-base);
+      max-width: 54px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .bbo-floating-widget.is-active .bbo-floating-link,
+    .bbo-floating-link:hover,
+    .bbo-floating-link:focus-visible {
+      max-width: 320px;
+      padding-right: 22px;
+      box-shadow: var(--sh-3);
+      border-color: var(--color-caramel);
+    }
+    
+    .bbo-floating-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-coffee);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      position: relative;
+      color: var(--color-milk);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .bbo-floating-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .bbo-status-dot {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 12px;
+      height: 12px;
+      background: var(--color-soy);
+      border: 2px solid var(--color-milk);
+      border-radius: 50%;
+    }
+    
+    .bbo-floating-text {
+      opacity: 0;
+      transform: translateX(10px);
+      transition: opacity var(--t-fast), transform var(--t-fast);
+      margin-left: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bbo-floating-widget.is-active .bbo-floating-text,
+    .bbo-floating-link:hover .bbo-floating-text,
+    .bbo-floating-link:focus-visible .bbo-floating-text {
+      opacity: 1;
+      transform: translateX(0);
+      transition-delay: 0.1s;
+    }
+    
+    .bbo-floating-kicker {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-bean);
+      margin-bottom: 2px;
+    }
+    .bbo-floating-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-coffee);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .bbo-floating-note {
+      position: absolute;
+      bottom: calc(100% + 14px);
+      right: 0;
+      background: var(--color-espresso);
+      color: var(--color-milk);
+      padding: 8px 14px;
+      border-radius: var(--r-md);
+      font-size: 12px;
+      font-weight: 500;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all var(--t-base);
+      box-shadow: var(--sh-2);
+      white-space: nowrap;
+    }
+    .bbo-floating-note::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      right: 22px;
+      border-width: 6px;
+      border-style: solid;
+      border-color: var(--color-espresso) transparent transparent transparent;
+    }
+    .bbo-floating-widget.is-active .bbo-floating-note,
+    .bbo-floating-link:hover ~ .bbo-floating-note,
+    .bbo-floating-link:focus-visible ~ .bbo-floating-note {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================
+       19 · RESPONSIVE
        ========================================================== */
     @media (max-width: 1024px) {
       .hero-grid { gap: 40px; }
@@ -1432,6 +1570,20 @@
       :root { --sp-section: var(--sp-section-m); }
       .container { padding-left: 20px; padding-right: 20px; }
       .section { padding-top: var(--sp-section-m); padding-bottom: var(--sp-section-m); }
+
+      /* BBO Widget Mobile Adjustments */
+      .bbo-floating-widget {
+        bottom: 16px;
+        right: 14px;
+      }
+      .bbo-floating-logo {
+        width: 38px;
+        height: 38px;
+      }
+      .bbo-floating-link {
+        padding: 5px;
+        max-width: 50px;
+      }
 
       /* Header */
       .header-inner {
@@ -2236,6 +2388,30 @@
 
 
     /* ----------------------------------------------------------
+       07 · BBO WIDGET LOGIC
+       ---------------------------------------------------------- */
+    function initBboWidget() {
+      const widget = document.getElementById("bbo-floating-widget");
+      if (!widget) return;
+      let timer;
+
+      function showBBO() {
+        widget.classList.add("is-active");
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          widget.classList.remove("is-active");
+        }, 4000);
+      }
+
+      ["scroll", "touchmove", "touchstart"].forEach((eventName) => {
+        window.addEventListener(eventName, showBBO, { passive: true });
+      });
+
+      widget.addEventListener("mouseenter", showBBO);
+      widget.addEventListener("focusin", showBBO);
+    }
+
+    /* ----------------------------------------------------------
        INIT
        ---------------------------------------------------------- */
     document.addEventListener('DOMContentLoaded', () => {
@@ -2244,7 +2420,24 @@
       initMobileNav();
       initActiveNav();
       initReveal();
+      initBboWidget();
     });
   </script>
+
+  <!-- BBO Floating Widget -->
+  <div class="bbo-floating-widget" id="bbo-floating-widget">
+    <a class="bbo-floating-link" href="https://bbotech.vn/vi/waas-website-solutions/" target="_blank" rel="noopener noreferrer" aria-label="BBO Team - Đối tác công nghệ">
+      <div class="bbo-floating-logo">
+        BBO
+        <div class="bbo-status-dot"></div>
+      </div>
+      <div class="bbo-floating-text">
+        <span class="bbo-floating-kicker">Đối tác công nghệ</span>
+        <span class="bbo-floating-title">Thiết kế Website <span aria-hidden="true">→</span></span>
+      </div>
+    </a>
+    <div class="bbo-floating-note">Nâng tầm thương hiệu của bạn ngay 🚀</div>
+  </div>
+
 </body>
 </html>
