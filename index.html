@@ -3371,6 +3371,7 @@
       const link = widget?.querySelector(".bbo-floating-link");
       if (!widget || !link) return;
 
+      const mobileQuery = window.matchMedia("(max-width: 768px)");
       const BBO_PREVIEW_IDLE_MS = 2600;
       const BBO_ARMED_IDLE_MS = 6000;
 
@@ -3413,8 +3414,16 @@
         }, BBO_ARMED_IDLE_MS);
       }
 
+      function handleScrollOrTouch() {
+        if (mobileQuery.matches) {
+          collapse();
+          return;
+        }
+        previewExpand();
+      }
+
       ["scroll", "touchmove", "touchstart"].forEach((eventName) => {
-        window.addEventListener(eventName, previewExpand, { passive: true });
+        window.addEventListener(eventName, handleScrollOrTouch, { passive: true });
       });
 
       widget.addEventListener("mouseenter", () => {
@@ -3448,6 +3457,17 @@
           return;
         }
       });
+
+      document.addEventListener("click", (event) => {
+        if (mobileQuery.matches && !widget.contains(event.target)) {
+          collapse();
+        }
+      });
+      document.addEventListener("touchstart", (event) => {
+        if (mobileQuery.matches && !widget.contains(event.target)) {
+          collapse();
+        }
+      }, { passive: true });
 
       link.setAttribute("aria-expanded", "false");
     }
