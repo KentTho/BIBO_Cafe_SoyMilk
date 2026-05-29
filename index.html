@@ -2129,8 +2129,8 @@
        ========================================================== */
     .scroll-progress-top {
       position: fixed;
-      bottom: 92px;
-      right: 24px;
+      bottom: 24px;
+      left: 24px;
       z-index: 9997;
       width: 46px;
       height: 46px;
@@ -2255,8 +2255,8 @@
       .scroll-progress-top {
         width: 42px;
         height: 42px;
-        bottom: 74px;
-        right: 14px;
+        bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+        left: 14px;
       }
 
       /* Header */
