@@ -120,7 +120,7 @@
       /* ── Spacing ── */
       --sp-section: 96px;
       --sp-section-m: 56px;
-      --container: 1200px;
+      --container: 1440px;
 
       /* ── Radius ── */
       --r-sm: 8px;
@@ -2042,8 +2042,9 @@
     .bbo-floating-logo img {
       width: 100%;
       height: 100%;
+      display: block;
       object-fit: cover;
-      border-radius: 50%;
+      border-radius: inherit;
     }
 
     .bbo-status-dot {
@@ -3548,7 +3549,7 @@
     <a class="bbo-floating-link" href="https://store.bbotech.vn/" target="_blank" rel="noopener noreferrer"
       aria-label="BBO Team - Đối tác công nghệ">
       <div class="bbo-floating-logo">
-        <img src="img/logo_bbo_team_white.jpg" alt="" srcset="">
+        <img src="img/logo_bbo_team_white.jpg" alt="BBO Team" loading="lazy" decoding="async">
         <div class="bbo-status-dot"></div>
       </div>
       <div class="bbo-floating-text">
